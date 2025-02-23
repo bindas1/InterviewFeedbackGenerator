@@ -22,7 +22,7 @@ def main():
         transcript = ""
         
         try:
-            audio_url = upload_to_transfersh(audio_path)
+            audio_url = upload_to_transfersh("interview.mp3")
             print("Audio file uploaded successfully. URL:", audio_url)
         except Exception as e:
             print("Error during upload:", e)
