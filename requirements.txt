@@ -1,3 +1,4 @@
 streamlit
 streamlit-audiorecorder
 streamlit-audiorec
+openai-whisper

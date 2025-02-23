@@ -1,21 +1,13 @@
 import streamlit as st
-from st_audiorec import st_audiorec  # Install via pip install streamlit-audiorecorder
+from components.audio_recorder import record_audio
+from components.audio_to_text import convert_audio_to_text
+from components.feedback_generator import generate_feedback
 
 def main():
-    st.title("Audio Recorder App")
-    
-    # Display instructions
-    st.write("Press the button to record your voice. When finished, the audio will be saved and playable below.")
-    
-    wav_audio_data = st_audiorec()
-
-    if wav_audio_data is not None:
-        st.audio(wav_audio_data, format='audio/wav')
-        
-        # Save the audio data to a file
-        with open("output.wav", "wb") as f:
-            f.write(wav_audio_data)
-        st.success("Audio recorded and saved as output.wav!")
+    st.title("Interview Feedback Generator")
+    audio = record_audio("audio.mp3")
+    text = convert_audio_to_text("audio.mp3")
+    # feedback = generate_feedback(text)
     
 if __name__ == "__main__":
     main()
