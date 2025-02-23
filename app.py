@@ -12,7 +12,13 @@ def main():
     # text = convert_audio_to_text("audio.mp3")
     # feedback = generate_feedback(text)
     
-    if st.button("Generate Feedback"):
+    # Initialize session state variables if they don't exist
+    if "feedback_generated" not in st.session_state:
+        st.session_state.feedback_generated = False
+    if "result" not in st.session_state:
+        st.session_state.result = None
+    
+    if st.button("Generate Feedback") and not st.session_state.feedback_generated:
         transcript = ""
         
         try:
@@ -22,12 +28,14 @@ def main():
             print("Error during upload:", e)
             return
         
-        # print("Calling Wordware API...")
-        # try:
-        #     result = call_wordware_api(audio_url, transcript)
-        #     st.markdown(f"**Feedback:** {result}")
-        # except Exception as e:
-        #     print("Error calling Wordware API:", e)
+        print("Calling Wordware API...")
+        try:
+            result = call_wordware_api(audio_url, transcript)
+            st.session_state.result = result
+            st.session_state.feedback_generated = True
+            st.markdown(f"**Feedback:** {result}")
+        except Exception as e:
+            print("Error calling Wordware API:", e)
     
 if __name__ == "__main__":
     main()
